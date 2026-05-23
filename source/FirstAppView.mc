@@ -24,9 +24,14 @@ class FirstAppView extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void {
         // Get and show the current time
         var clockTime = System.getClockTime();
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
+        var timeString = Lang.format("$1$:$2$", [clockTime.hour.format("%02d"), clockTime.min.format("%02d")]);
         var view = View.findDrawableById("TimeLabel") as Text;
         view.setText(timeString);
+
+        // Show the current date (YYYY-MM-DD)
+        var dateString = Lang.format("$1$-$2$-$3$", [clockTime.year, clockTime.month.format("%02d"), clockTime.day.format("%02d")]);
+        var dateView = View.findDrawableById("DateLabel") as Text;
+        dateView.setText(dateString);
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
